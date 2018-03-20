@@ -269,24 +269,32 @@ public class Node
             }
             else
             {
-                if (LeftNode.IsEmpty())
+                if(LeftNode != null)
                 {
-                    LeftNode.CopyMember(member, this);
-                    return true;
+                    if (LeftNode.IsEmpty())
+                    {
+                        LeftNode.CopyMember(member, this);
+                        return true;
+                    }
+                    else if (LeftNode.IsDecendant(member))
+                    {
+                        return LeftNode.PlaceChild(member);
+                    }
                 }
-                else if (LeftNode.IsDecendant(member))
+
+                if (RightNode != null)
                 {
-                    return LeftNode.PlaceChild(member);
+                    if (RightNode.IsEmpty())
+                    {
+                        RightNode.CopyMember(member, this);
+                        return true;
+                    }
+                    else if (RightNode.IsDecendant(member))
+                    {
+                        return RightNode.PlaceChild(member);
+                    }
                 }
-                if (RightNode.IsEmpty())
-                {
-                    RightNode.CopyMember(member, this);
-                    return true;
-                }
-                else if (RightNode.IsDecendant(member))
-                {
-                    return RightNode.PlaceChild(member);
-                }
+                return false;
             }
         }
         return Parent.PlaceChild(member);

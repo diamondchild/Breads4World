@@ -604,8 +604,7 @@ Partial Class SignUp
             Dim selectedLevel As Integer = rootMember.Stage
             'fetch the downlines
 
-            Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT between " +
-                rootMember.Left.ToString + " and " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID = " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
+            Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT between " + rootMember.Left.ToString + " and " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID = " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
             dsworky = cc.SelectDataTableRecords(sql)
 
             'check if court its empty
