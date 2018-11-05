@@ -22,18 +22,18 @@ Partial Class Dashboard
     Private da As New SqlDataAdapter
     Private dt As New DataTable
     Private ds As New DataSet
-
+    Dim bonus As Integer
     Protected Sub getDashbaordInfo()
 
         Try
             thisConnection.Open()
-            Dim into1 As String = String.Format("SELECT REQUEST_TRANSFER, CURRENT_STAGE, TOTAL_BONUS_EARN_U, TOTAL_BONUS_EARN_N, TOTAL_BONUS_WITHDRAWN_U, TOTAL_BONUS_WITHDRAWN_N, TOTAL_EWALLET_BALANCE_U, TOTAL_EWALLET_BALANCE_N FROM DashboardTable where REG_ID ='" + lblReg_Id.Text + "'")
+            Dim into1 As String = String.Format("SELECT * FROM DashboardTable where REG_ID ='" + lblReg_Id.Text + "'")
             'passing the variable to the datatable
             Dim dsworky As DataTable = cc.SelectDataTableRecords(into1)
 
             'check if court its empty
             If dsworky.Rows.Count > 0 Then
-
+                bonus = dsworky.Rows(0)("CURRENT_STAGE_ID")
                 lblCurrentStage.Text = dsworky.Rows(0)("CURRENT_STAGE").ToString
                 lbltotalbonusearnedusd.Text = dsworky.Rows(0)("TOTAL_BONUS_EARN_U").ToString
                 lbltotalbonusearnedngn.Text = dsworky.Rows(0)("TOTAL_BONUS_EARN_N").ToString
@@ -41,7 +41,45 @@ Partial Class Dashboard
                 lbltotalbonuswithdrawnedngn.Text = dsworky.Rows(0)("TOTAL_BONUS_WITHDRAWN_N").ToString
                 lbltotalewalletbalanceusd.Text = dsworky.Rows(0)("TOTAL_EWALLET_BALANCE_U").ToString
                 lbltotalewalletbalancengn.Text = dsworky.Rows(0)("TOTAL_EWALLET_BALANCE_N").ToString
+
+                lbltotalfoodstuffbalanceusd.Text = dsworky.Rows(0)("TOTAL_FOODSTUFF_BALANCE_U").ToString
+                lbltotalfoodstuffbalancengn.Text = dsworky.Rows(0)("TOTAL_FOODSTUFF_BALANCE_N").ToString
+                lbltotalfoodstuffearnedusd.Text = dsworky.Rows(0)("TOTAL_FOODSTUFF_EARN_U").ToString
+                lbltotalfoodstuffearnedngn.Text = dsworky.Rows(0)("TOTAL_FOODSTUFF_EARN_N").ToString
+                lbltotalfoodstuffwithdrawnusd.Text = dsworky.Rows(0)("TOTAL_FOODSTUFF_WITHDRAWN_U").ToString
+                lbltotalfoodstuffwithdrawngn.Text = dsworky.Rows(0)("TOTAL_FOODSTUFF_WITHDRAWN_N").ToString
+
+
                 btnFundRequest.InnerText = dsworky.Rows(0)("REQUEST_TRANSFER").ToString
+                btnFoodstuffRequest.InnerHtml = dsworky.Rows(0)("REQUEST_FOOD_TRANSFER").ToString
+
+                ''Food items collection 
+                'If dsworky.Rows(0)("FOOD_REQUEST").ToString = "TRUE" Then
+                '    lblFoodItemStatus.Text = "CONGRATULATIONS, YOU ARE QUALIFIED FOR FOOD ITEMS WORTH "
+
+                '    Select Case bonus
+                '        Case 2
+                '            lblFoodPoint.Text = "$18"
+                '        Case 2
+                '            lblFoodPoint.Text = "$75"
+                '        Case 4
+                '            lblFoodPoint.Text = "$250"
+                '        Case 5
+                '            lblFoodPoint.Text = "$500"
+                '        Case 6
+                '            lblFoodPoint.Text = "$1000"
+
+                '    End Select
+                'ElseIf dsworky.Rows(0)("FOOD_REQUEST").ToString = "FALSE" Then
+
+                '    lblFoodItemStatus.Text = "FOOD ITEMS FOR THIS STAGE HAS BEEN COLLECTED"
+                '    lblFoodPoint.Text = ""
+                'Else
+
+                '    lblFoodItemStatus.Text = ""
+                '    lblFoodPoint.Text = ""
+                'End If
+
             Else
                 lblMessage.Visible = True
                 lblMessage.ForeColor = Color.Red
@@ -134,6 +172,9 @@ Partial Class Dashboard
         End If
     End Sub
 
+
+   
+
     'Protected Sub Repeater2_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles Repeater2.ItemCommand
     '    If e.CommandName = "viewUsed" Then
     '        Dim ID As HiddenField = CType(e.Item.FindControl("systemHiddenID"), HiddenField)
@@ -180,4 +221,15 @@ Partial Class Dashboard
         thisConnection.Close()
     End Sub
 
+    Protected Sub btnFoodstuffRequest_ServerClick1(sender As Object, e As System.EventArgs) Handles btnFoodstuffRequest.ServerClick
+
+        If btnFundRequest.InnerText = "PENDING" Then
+            'Do nothing
+        Else
+            Session.Add("regID", lblReg_Id.Text)
+            Session.Add("foodStuffBalance", lbltotalfoodstuffbalanceusd.Text)
+            Response.Redirect("FoodRequest.aspx")
+        End If
+
+    End Sub
 End Class

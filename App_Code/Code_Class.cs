@@ -197,6 +197,7 @@ public class Node
         return _stage;
     }
 
+
     public void AddChildren(List<Member> members, int maxStage)
     {
         if (this._level == maxStage) return;
@@ -207,7 +208,7 @@ public class Node
         {
             leftMember = new Member { Name = "Empty" };
         }
-        else
+        else 
         {
             // todo remove this item from the list
             members.Remove(leftMember);
@@ -215,7 +216,10 @@ public class Node
 
 
         //right
-        var rightMember = (from m in members where m.Left > this._left & m.Right < this._right select m).FirstOrDefault();
+        var rightMember = (from m in members
+                           where !(m.Left > leftMember.Left & m.Right < leftMember.Right) &
+                               (m.Left > this._left & m.Right < this._right)
+                           select m).FirstOrDefault();
         if (rightMember == null)
         {
             rightMember = new Member { Name = "Empty" };

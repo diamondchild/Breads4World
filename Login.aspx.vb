@@ -141,7 +141,7 @@ Partial Class Login
             Dim fullname As String = g_username
             email = txtUserName.Value
             'sender email address
-            msg.From = New MailAddress("diamondchild4u2000@gmail.com", "BREAD FOR WORLD INC.")
+            msg.From = New MailAddress("info@breadsforworld.com", "BREAD FOR WORLD INC.")
             'Receiver email address
             msg.[To].Add(New MailAddress(txtUserName.Value, g_username))
             msg.Subject = "BREAD FOR WORLD PASSWORD RECOVERY"
@@ -178,8 +178,7 @@ Partial Class Login
 
 
             'Dim smtp As New SmtpClient()
-            'smtp.Credentials = New NetworkCredential("diamondchild4u2000@gmail.com", "Diamond2000")
-
+       
             Dim SmtpMail As New SmtpClient
             Dim basicAuthenticationInfo As New System.Net.NetworkCredential("info@breadsforworld.com", "info@breadsforworld")
 

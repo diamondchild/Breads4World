@@ -36,8 +36,9 @@ body{
 .w3layouts-logo h1 {
     margin: 0;
 }
-.w3layouts-logo h1 a {
-	color: #8BC34A;
+.w3layouts-logo h1 a
+{
+    color: #FFCC00;
     font-size: 1.3em;
     text-decoration: none;
     text-transform: uppercase;
@@ -2637,4 +2638,18 @@ h2.typoh2{
 		padding: .5em 1em;
 	}
 }
+.sharp2
+{
+    padding: 2px;
+    border-radius: 1px 37px 5px 37px;
+    -moz-border-radius: 1px 37px 5px 37px;
+    -webkit-border-radius: 1px 37px 5px 37px;
+    border: 1px solid #ffffff;
+    -webkit-box-shadow: 5px 5px 5px 10px rgba(255,255,255,0.68);
+    -moz-box-shadow: 5px 5px 5px 10px rgba(255,255,255,0.68);
+    box-shadow: 5px 5px 5px 10px rgba(255,255,255,0.68);
+    margin-top: 60px;
+    background-color: #1483F7;
+    width: 100%;
+    height: 210px;
 /*-- //responsive --*/

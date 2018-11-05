@@ -38,7 +38,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <style type="text/css">
         .style1
         {
-            width: 270px;
+            width: 300px;
+        }
+        .style2
+        {
+            background-color: #6699FF;
         }
     </style>
 </head>
@@ -51,6 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                 <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -72,6 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<li><a class="active" href="#">Dashboard</a></li>
 									<li><a href="ViewProfile.aspx">Profile</a></li>
 									<li><a href="Genealogy.aspx">Genealogy</a></li>
+                            
                                     <li><a href="TransactionDetails.aspx">Transaction Details</a></li>
                                     <li ><a href="#"  id = "lnkLogout" runat="server" >Logout</a></li>
                                 	
@@ -92,8 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 							 <div class="wrap-col">
-								<h4>-<asp:Label ID="lblUsername" runat="server" Font-Bold="True" ForeColor="Yellow"></asp:Label>-</h4><h4 align="right">&nbsp;<asp:Label ID="lblCurrentStage" runat="server" ForeColor="Yellow" Font-Bold="True"></asp:Label>
-                                </h4>
+								<h4>-<asp:Label ID="lblUsername" runat="server" Font-Bold="True" ForeColor="Yellow"></asp:Label>-</h4>
                                 <asp:Label ID="lblMessage" runat="server" ></asp:Label>
                                 <asp:Label ID="lblReg_Id" runat="server" visible="false"></asp:Label>
                                 <asp:Label ID="lbluuid" runat="server" visible="false"></asp:Label>
@@ -104,77 +109,187 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <div class="wrapper" align="left"><span style="color: #FFFF00">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
                                     <div/>
 
-                                    
-                                    <div class = "sharp"; style="width: 30%;  float: right; " > 
-                                   <table style="width:100%; color: #FFFFFF;"><tr><td>&nbsp;</td><td>
-                                       &nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>
-                                       &nbsp;</td><td>&nbsp;</td></tr><tr><td class="text-left"><span style="color: #FFFF00">Sponsor's Details</span> 
+                                    <div style="width: 95%; margin-right: auto; margin-left: auto" align="center">
+                                    <span><marquee style="color: #FFFFFF; font-family: 'AvantGarde Bk BT'" >Please you are adviced to change your password by clicking on Profile, then Change Password. Thanks for choosing breadforworld</marquee></span>
+                                    <br /><br />
+                                    <h4 align="right">&nbsp;<asp:Label ID="lblCurrentStage" runat="server" ForeColor="Yellow" Font-Bold="True"></asp:Label></h4>
+                                    <div class = "sharp"; style="width: 25%;  float: right; margin-left: 9px;" > 
+                                    <div align="right" style="padding: 5px; background-color: #FFFFFF;">
+                                   <table style="width:100%; color: #FFFFFF;">
+                                       
+                                       
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="text-left"><span style="color: #FFFF00">Sponsor's Details</span> 
                                        &nbsp;&nbsp;</td><td class="text-left">
-                                           &nbsp;</td><td>&nbsp;</td></tr><tr><td class="text-left">ID</td><td class="text-left">
+                                           &nbsp;</td><td>&nbsp;</td></tr>
+                                           
+                                       <tr class="style2" style="background-color: #CC9900"><td class="text-left">ID</td><td class="text-left">
                                        <asp:Label ID="lblSponsorID" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="text-left">NAME</td><td class="text-left">
+                                       </td><td>&nbsp;</td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="text-left">NAME</td><td class="text-left">
                                        <asp:Label ID="lblSponsorName" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="text-left">PHONE NUMBER</td>
+                                       </td><td>&nbsp;</td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="text-left">PHONE No.</td>
                                        <td class="text-left">
                                        <asp:Label ID="lblSponsorPhoneNo" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>
+                                       </td><td>&nbsp;</td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td>&nbsp;</td><td>
                                        &nbsp;</td><td>&nbsp;</td></tr></table>
+                                       </div>
                                     </div>
 
-                                    <div class="sharp"; style="width: 60%;  float: right;"  >
-                                    <div align="right">
-                                   <table style="width:100%;  height: 345px; color: #FFFFFF;" class="dashboardTable">
-                                   <tr><td class="style2" 
-                                           colspan="2" align="center" bgcolor="#CCCCCC" 
-                                           style="font-size: x-large; background-color: #006600;">
-                                           My Rewards &amp; Bonus</td><td>&nbsp;</td></tr><tr><td class="style1">
+                                    <div class="sharp"; style="width: 65%;  float: right;"  >
+                                    <img src="images/dashbaordrewardbanner.JPG" style="width: 100%; height: 129px" />
+                                    <div style="width: 100%">  
+                                        
+                                   
+                                     
+                                     </div>
+                                    <div align="right" style="padding: 5px; background-color: #FFFFFF;">
+                                   <table style="width:100%;  height: 345px; color: #FFFFFF; background-color: #3366FF;" class="dashboardTable">
+                                  <tr class="style2" style="background-color: #CC9900" align="center">
+                                  <td >
+                                   
+                                   </td>
+
+                                      <td>&nbsp;</td></tr><tr><td class="style1">
                                        &nbsp;</td><td class="text-left">
-                                           &nbsp;</td><td>&nbsp;</td></tr><tr><td class="style1">TOTAL BONUS EARNED(USD)</td>
+                                           &nbsp;</td></tr><tr><td class="style1">
+                                    <%--  <span style="font-weight: bold; color: #FF0000; text-decoration: blink; font-family: 'AvantGarde Bk BT'; background-color: #FFFFFF; font-size: large;"> <asp:Label ID="lblFoodItemStatus" runat="server"></asp:Label><asp:Label ID="lblFoodPoint" runat="server" ></asp:Label></span>--%>
+                                       </td>
+                                       <td class="text-left">
+                                           &nbsp;</td></tr>
+
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL BONUS EARNED(USD)</td>
                                        <td class="text-left">
                                        :
                                        $<asp:Label ID="lbltotalbonusearnedusd" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="style1">TOTAL BONUS EARNED(NGN)</td>
+                                       </td></tr>
+
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL BONUS EARNED(NGN)</td>
                                        <td class="text-left">
                                        :
                                        N<asp:Label ID="lbltotalbonusearnedngn" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="style1">TOTAL BONUS WITHDRAWN(USD)</td>
+                                       </td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL BONUS WITHDRAWN(USD)</td>
                                        <td class="text-left">
                                        :
                                        $<asp:Label ID="lbltotalbonuswithdrawnusd" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="style1">TOTAL BONUS WITHDRAWN(NGN)</td>
+                                       </td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL BONUS WITHDRAWN(NGN)</td>
                                        <td class="text-left">
                                        :
                                        N<asp:Label ID="lbltotalbonuswithdrawnedngn" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="style1">TOTAL EWALLET BALANCE(USD)</td>
+                                       </td></tr>
+
+
+                                        <tr class="style2" style="background-color: #CC9900"><td class="style1">&nbsp;&nbsp;</td>
+                                       <td class="text-left">
+                                      
+                                       </td></tr>
+                                       
+
+
+
+                                       
+
+
+
+                                       <tr><td class="style1">TOTAL EWALLET BALANCE(USD)</td>
                                        <td class="text-left">
                                        
                                        :
                                        
                                        $<asp:Label ID="lbltotalewalletbalanceusd" runat="server" ></asp:Label>
-                                       </td><td>&nbsp;</td></tr><tr><td class="style1">TOTAL EWALLET BALANCE(NGN)</td>
+                                       </td></tr>
+                                       
+                                       <tr><td class="style1">TOTAL EWALLET BALANCE(NGN)</td>
                                        <td class="text-left">
                                        
                                        :
                                        
                                        N<asp:Label ID="lbltotalewalletbalancengn" runat="server" ></asp:Label>
-                                       </td><td>
-                                  
+                                       </td></tr>
 
-                                           &nbsp;</td></tr><tr><td class="style1">&nbsp;</td><td class="text-left">
-                                           &nbsp;</td><td>&nbsp;</td></tr><tr><td class="style1">&nbsp;</td><td class="text-left">
-                                           <button id="btnFundRequest" runat="server" class="button" type="button" 
-                                               style="background-color: #0099CC">
-                                               Fund Request
-                                           </button>
-                                       </td><td>&nbsp;</td></tr><tr><td class="style1">&nbsp;</td><td class="text-left">
-                                           &nbsp;</td><td>&nbsp;</td></tr><tr><td class="style1">&nbsp;</td><td class="text-left">
-                                           &nbsp;</td><td>&nbsp;</td></tr></table>
+
+                                           
+                                          <tr class="style2" style="background-color: #CC9900"><td class="style1">&nbsp;&nbsp;</td>
+                                       <td class="text-left">
+                                      
+                                       </td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL FOOD ITEMS EARNED(USD)</td>
+                                       <td class="text-left">
+                                       :
+                                       $<asp:Label ID="lbltotalfoodstuffearnedusd" runat="server" ></asp:Label>
+                                       </td></tr>
+
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL FOOD ITEMS EARNED(NGN)</td>
+                                       <td class="text-left">
+                                       :
+                                       N<asp:Label ID="lbltotalfoodstuffearnedngn" runat="server" ></asp:Label>
+                                       </td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL FOOD ITEMS WITHDRAWN(USD)</td>
+                                       <td class="text-left">
+                                       :
+                                       $<asp:Label ID="lbltotalfoodstuffwithdrawnusd" runat="server" ></asp:Label>
+                                       </td></tr>
+                                       
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">TOTAL FOOD ITEMS WITHDRAWN(NGN)</td>
+                                       <td class="text-left">
+                                       :
+                                       N<asp:Label ID="lbltotalfoodstuffwithdrawngn" runat="server" ></asp:Label>
+                                       </td></tr>
+
+                                       <tr class="style2" style="background-color: #CC9900"><td class="style1">&nbsp; &nbsp;</td>
+                                       <td class="text-left">
+                                           &nbsp;</td></tr>
+
+                                       <tr><td class="style1">TOTAL FOOD ITEMS BALANCE(USD)</td>
+                                       <td class="text-left">
+                                       :
+                                       $<asp:Label ID="lbltotalfoodstuffbalanceusd" runat="server" ></asp:Label>
+                                       </td></tr>
+                                       
+                                       <tr><td class="style1">TOTAL FOOD ITEMS BALANCE(NGN)</td>
+                                       <td class="text-left">
+                                       :
+                                       N<asp:Label ID="lbltotalfoodstuffbalancengn" runat="server" ></asp:Label>
+                                       </td></tr>
+
+
+
+
+                                           
+                                        
+                                                <tr class="style2" style="background-color: #CC9900"><td class="style1">&nbsp;</td><td class="text-left">
+                                                    &nbsp;</td></tr>
+                                           <tr class="style2" style="background-color: #CC9900"><td class="style1">&nbsp; <button id="btnFundRequest" runat="server" class="button" type="button" 
+                                               style="background-color: #ffffff">
+                                               Bonus Fund Request
+                                           </button> &nbsp;| &nbsp; <button id="btnFoodstuffRequest" runat="server" class="button" type="button" 
+                                               style="background-color: #ffffff">
+                                               Food Stuff Request
+                                           </button></td><td >
+                                          
+                                       </td></tr>
+                                       
+                                       <tr><td class="style1">&nbsp;</td><td class="text-left">
+                                           &nbsp;</td></tr>
+                                           
+                                         </table>
 
                                         </div>                                           
                                        
                                     </div>
-                                  
-                                  <div style="width: 70%; margin-right: auto; margin-left: auto"> 
+                                    <br /><br />
+                                          <div style="width: 67%; margin-right: auto; margin-left: auto"> 
                                       <asp:Label ID="lblSentPIn" runat="server" Text="PINS sent from Admin" 
                                           ForeColor="White"></asp:Label><br />
                                    	  <asp:Repeater ID="Repeater2" runat="server">
@@ -226,6 +341,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       </asp:Repeater>
                                   
 </div>
+                                  </div>
+                          
                                    	</fieldset>
                                     	
                                     				

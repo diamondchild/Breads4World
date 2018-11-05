@@ -115,8 +115,7 @@ optgroup,
 select,
 textarea {
   margin: 0;
-  font: inherit;
-  color: inherit;
+  color: #000000;
 }
 button {
   overflow: visible;
@@ -131,6 +130,7 @@ input[type="reset"],
 input[type="submit"] {
   -webkit-appearance: button;
   cursor: pointer;
+    background-color: #FFFFFF;
 }
 button[disabled],
 html input[disabled] {
@@ -1119,6 +1119,8 @@ figure {
 }
 img {
   vertical-align: middle;
+    height: 138px;
+    width: 771px;
 }
 .img-responsive,
 .thumbnail > img,

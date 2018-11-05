@@ -51,6 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -71,6 +72,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<ul class="nav navbar-nav">
 									<li><a  href="Admin.aspx">Generate PIN</a></li>
 									<li><a class="active"  href="Transfer.aspx">Pending Transfer</a></li>
+                                     <li><a href="FoodStuffRequest.aspx">Food Stuff Request</a></li>
 								<li><a href="ViewAll.aspx" target = "_blank">View All Users</a></li>
                                      <li><a  href="#" id="lnkLogout" runat="server">Logout</a></li>
 								</ul>	
@@ -117,7 +119,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                           <td class="reapeatercell_header">
                          REG ID</td>
                        <td class="reapeatercell_header">
-                         CUREENT STAGE</td>
+                         CURRENT STAGE</td>
                           
                            <td class="reapeatercell_header">
                            TOTAL EARN

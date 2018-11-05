@@ -20,7 +20,7 @@ Partial Class ViewAll
     Private Sub LoadRepeater()
         dt.Rows.Clear()
         thisConnection.Open()
-        sqlcmd = New SqlCommand("SELECT ID, REG_ID, USERSNAME, MOBILE, SPONSOR_NAME, PASSWORD, CURRENT_STAGE_ID, DATE from RegTable WHERE USERSNAME IS NOT NULL  ORDER BY DATE ", thisConnection)
+        sqlcmd = New SqlCommand("SELECT ID, REG_ID, USERSNAME, FIRST_NAME, LAST_NAME, MOBILE, SPONSOR_NAME, PASSWORD, CURRENT_STAGE_ID, DATE from RegTable WHERE USERSNAME IS NOT NULL  ORDER BY DATE ", thisConnection)
         da = New SqlDataAdapter(sqlcmd)
         da.Fill(dt)
         If dt.Rows.Count > 0 Then

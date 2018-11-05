@@ -51,6 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                  <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -69,7 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<!-- Collect the nav links, forms, and other content for toggling -->
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav">
-									<li><a href="index.html">Dashboard</a></li>
+									<li><a href="Dashboard.aspx">Dashboard</a></li>
 									<li><a class="active" href="ViewProfile.aspx">Profile</a></li>
 									<li><a href="Genealogy.aspx">Genealogy</a></li>
                                     <li ><a href="#"  id = "lnkLogout" runat="server" >Logout</a></li>

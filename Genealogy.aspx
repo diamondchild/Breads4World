@@ -117,7 +117,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="header-left">
 						<div class="w3layouts-logo">
 							<h1>
-								<a href="index.html">Bread For World <span>Int.</span></a>
+							<a href="index.html">Bread For World <span>Int.</span></a>
+                                 <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -139,6 +140,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<li><a href="Dashboard.aspx">Dashboard</a></li>
 									<li><a  href="ViewProfile.aspx">Profile</a></li>
 									<li><a class="active" href="Genealogy.aspx">Genealogy</a></li>
+                                    <li><a  href="ViewDownliners.aspx" target = "_blank">View Downliners</a></li>
                                     <li ><a href="#"  id = "lnkLogout" runat="server" >Logout</a></li>
 									
 								<div class="clearfix"> </div>

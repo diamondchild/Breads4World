@@ -18,13 +18,14 @@ Partial Class SignUp
     Inherits System.Web.UI.Page
     Dim thisConnection As New SqlConnection(ConfigurationManager.ConnectionStrings("Bread4WorldConnectionString").ConnectionString)
     Dim cc As Code_Class = New Code_Class()
-
+    Dim sponsorCount As String
     Dim validatedParent, validatedSponsor, validatedReg As String
+    Dim foodStuff As Double
 
 
     Protected Sub insert()
-        thisConnection.Open()
 
+        thisConnection.Open()
         If lblValidateStatus.Text = "SPONSORID VERIFIED REGID VERIFIED " Then
 
 
@@ -44,7 +45,7 @@ Partial Class SignUp
                 'avoid dublicate username
                 Try
 
-                    Dim into1 As String = String.Format("SELECT REG_ID, SPONSOR_ID, PARENT_ID FROM RegTable where USERSNAME ='" + txtUsersName.Value + "' or  EMAIL = '" + txtEmail.Value + "'")
+                    Dim into1 As String = String.Format("SELECT REG_ID, SPONSOR_ID, PARENT_ID FROM RegTable where USERSNAME ='" + txtUsersName.Value + "'")
                     'passing the variable to the datatable
                     Dim dsworky As DataTable = cc.SelectDataTableRecords(into1)
 
@@ -52,7 +53,7 @@ Partial Class SignUp
                     If dsworky.Rows.Count > 0 Then
                         lblMessage.Visible = True
                         lblMessage.ForeColor = Color.Red
-                        lblMessage.Text = "UserName or Email already Exist, Please choose another"
+                        lblMessage.Text = "UserName aready Exist, Please choose another"
                         ClientScript.RegisterStartupScript(Me.[GetType](), "alert", "HideLabel();", True)
                     Else
 
@@ -93,7 +94,8 @@ Partial Class SignUp
                                 cmd.Parameters.AddWithValue("@DATE", Date.Now.Date)
 
                                 Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
-
+                                DeleteUserGeneratedPin(txtRegId.Value)
+                                sendmail()
                                 UpdateNode(txtRegId.Value, txtSponsorID.Value)
 
 
@@ -109,9 +111,10 @@ Partial Class SignUp
                             Session.Add("sponsorid", txtSponsorID.Value)
                             Session.Add("sponsorname", txtSponsorName.Value)
                             Session.Add("sponsorphoneno", txtSponsorPhoneNo.Value)
-                            deleteUserGeneratedPin()
-                            Response.Redirect("Dashboard.aspx")
 
+                            thisConnection.Close()
+                            Response.Redirect("Dashboard.aspx")
+                            'Return
                         Else
                             lblMessage.Visible = True
                             lblMessage.ForeColor = Color.Red
@@ -123,7 +126,7 @@ Partial Class SignUp
                 Catch ex As Exception
                     lblMessage.Visible = True
                     lblMessage.ForeColor = Color.Red
-                    lblMessage.Text = "Sorry! Your registration wasn't seccessful"
+                    lblMessage.Text = ex.Message '".."
 
                 End Try
 
@@ -135,9 +138,23 @@ Partial Class SignUp
             lblMessage.Text = "Please click on Validate ID's to validate ID before sumbitting"
             lblValidateStatus.Visible = True
 
-
-
         End If
+        thisConnection.Close()
+
+    End Sub
+
+    Protected Sub DeleteUserGeneratedPin(ByVal RegID As String)
+
+        Try
+            'insert into General table
+
+            Using cmd As New SqlCommand("DELETE FROM SentPinsTable WHERE PINS = '" + RegID + "'", thisConnection)
+                Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
+            End Using
+
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 
@@ -220,7 +237,6 @@ Partial Class SignUp
             updateParentLevels(left, right)
 
         End If
-
     End Sub
 
     Protected Function getDownlineCount(ByVal left As Integer, ByVal right As Integer) As Integer
@@ -286,10 +302,11 @@ Partial Class SignUp
         Try
 
             'INSERT INTO Dashboard table
-            Using cmd As New SqlCommand("insert into DashboardTable (REQUEST_TRANSFER, UUID, REG_ID, SPONSOR_ID, CURRENT_STAGE, CURRENT_STAGE_ID, TOTAL_BONUS_EARN_U, TOTAL_BONUS_EARN_N, TOTAL_BONUS_WITHDRAWN_U, TOTAL_BONUS_WITHDRAWN_N, TOTAL_EWALLET_BALANCE_U, TOTAL_EWALLET_BALANCE_N)values (@REQUEST_TRANSFER, @UUID, @REG_ID, @SPONSOR_ID, @CURRENT_STAGE, @CURRENT_STAGE_ID, @TOTAL_BONUS_EARN_U, @TOTAL_BONUS_EARN_N, @TOTAL_BONUS_WITHDRAWN_U, @TOTAL_BONUS_WITHDRAWN_N, @TOTAL_EWALLET_BALANCE_U, @TOTAL_EWALLET_BALANCE_N)", thisConnection)
+            Using cmd As New SqlCommand("insert into DashboardTable (REQUEST_TRANSFER, REQUEST_FOOD_TRANSFER, UUID, REG_ID, SPONSOR_ID, CURRENT_STAGE, CURRENT_STAGE_ID, TOTAL_BONUS_EARN_U, TOTAL_BONUS_EARN_N, TOTAL_BONUS_WITHDRAWN_U, TOTAL_BONUS_WITHDRAWN_N, TOTAL_EWALLET_BALANCE_U, TOTAL_EWALLET_BALANCE_N, TOTAL_FOODSTUFF_EARN_U, TOTAL_FOODSTUFF_EARN_N, TOTAL_FOODSTUFF_WITHDRAWN_U, TOTAL_FOODSTUFF_WITHDRAWN_N, TOTAL_FOODSTUFF_BALANCE_U, TOTAL_FOODSTUFF_BALANCE_N )values (@REQUEST_TRANSFER, @REQUEST_FOOD_TRANSFER, @UUID, @REG_ID, @SPONSOR_ID, @CURRENT_STAGE, @CURRENT_STAGE_ID, @TOTAL_BONUS_EARN_U, @TOTAL_BONUS_EARN_N, @TOTAL_BONUS_WITHDRAWN_U, @TOTAL_BONUS_WITHDRAWN_N, @TOTAL_EWALLET_BALANCE_U, @TOTAL_EWALLET_BALANCE_N, @TOTAL_FOODSTUFF_EARN_U, @TOTAL_FOODSTUFF_EARN_N, @TOTAL_FOODSTUFF_WITHDRAWN_U, @TOTAL_FOODSTUFF_WITHDRAWN_N, @TOTAL_FOODSTUFF_BALANCE_U, @TOTAL_FOODSTUFF_BALANCE_N)", thisConnection)
                 cmd.CommandType = CommandType.Text
 
                 cmd.Parameters.AddWithValue("@REQUEST_TRANSFER", "Fund Request")
+                cmd.Parameters.AddWithValue("@REQUEST_FOOD_TRANSFER", "Food Stuff Request")
                 cmd.Parameters.AddWithValue("@UUID", "" + Guid.NewGuid().ToString)
                 cmd.Parameters.AddWithValue("@REG_ID", txtRegId.Value)
                 cmd.Parameters.AddWithValue("@SPONSOR_ID", txtSponsorID.Value)
@@ -300,6 +317,15 @@ Partial Class SignUp
                 cmd.Parameters.AddWithValue("@TOTAL_BONUS_WITHDRAWN_N", 0)
                 cmd.Parameters.AddWithValue("@TOTAL_EWALLET_BALANCE_U", 0)
                 cmd.Parameters.AddWithValue("@TOTAL_EWALLET_BALANCE_N", 0)
+
+                cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_EARN_U", 0)
+                cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_EARN_N", 0)
+                cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_WITHDRAWN_U", 0)
+                cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_WITHDRAWN_N", 0)
+                cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_BALANCE_U", 0)
+                cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_BALANCE_N", 0)
+
+
                 cmd.Parameters.AddWithValue("@CURRENT_STAGE_ID", 1)
 
 
@@ -331,7 +357,6 @@ Partial Class SignUp
         End Try
     End Sub
 
-
     Protected Sub btnClear_ServerClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnClear.ServerClick
         insert()
     End Sub
@@ -349,6 +374,11 @@ Partial Class SignUp
                 If memberHasCompletedLevel(regId, currentLevel) = True Then
                     Dim bonus = getLevelBonus(currentLevel)
                     creditMember(regId, bonus)
+
+                    If sponsorCount = "FIRSTCOUNT" Then
+
+                    End If
+
                     Dim nextLevel = currentLevel + 1
                     addMemberLevel(regId, nextLevel)
                 End If
@@ -396,24 +426,34 @@ Partial Class SignUp
     
 
     Private Function getLevelBonus(ByVal levelId As Integer) As Object
-        Dim sql = "select BONUS from LevelTable where ID = '" + levelId.ToString + "'"
+        Dim sql = "select BONUS, FOODSTUFF from LevelTable where ID = '" + levelId.ToString + "'"
         Dim dsworky As DataTable = cc.SelectDataTableRecords(sql)
         If dsworky.Rows.Count > 0 Then
+            foodStuff = dsworky.Rows(0)("FOODSTUFF")
             Return dsworky.Rows(0)("BONUS")
         End If
         Return 0
     End Function
 
     Private Sub creditMember(ByVal regId As String, ByVal bonus As Object)
-        Dim sql = "update DashboardTable set TOTAL_EWALLET_BALANCE_U = TOTAL_EWALLET_BALANCE_U + @TOTAL_EWALLET_BALANCE_U, TOTAL_EWALLET_BALANCE_N = TOTAL_EWALLET_BALANCE_N + @TOTAL_EWALLET_BALANCE_N, TOTAL_BONUS_EARN_U = TOTAL_BONUS_EARN_U + @TOTAL_BONUS_EARN_U, TOTAL_BONUS_EARN_N = TOTAL_BONUS_EARN_N + @TOTAL_BONUS_EARN_N where REG_ID = @REG_ID"
+        Dim sql = "update DashboardTable set TOTAL_EWALLET_BALANCE_U = TOTAL_EWALLET_BALANCE_U + @TOTAL_EWALLET_BALANCE_U, TOTAL_FOODSTUFF_BALANCE_U = TOTAL_FOODSTUFF_BALANCE_U + @TOTAL_FOODSTUFF_BALANCE_U, TOTAL_EWALLET_BALANCE_N = TOTAL_EWALLET_BALANCE_N + @TOTAL_EWALLET_BALANCE_N, TOTAL_FOODSTUFF_BALANCE_N = TOTAL_FOODSTUFF_BALANCE_N + @TOTAL_FOODSTUFF_BALANCE_N, TOTAL_BONUS_EARN_U = TOTAL_BONUS_EARN_U + @TOTAL_BONUS_EARN_U, TOTAL_FOODSTUFF_EARN_U = TOTAL_FOODSTUFF_EARN_U + @TOTAL_FOODSTUFF_EARN_U, TOTAL_BONUS_EARN_N = TOTAL_BONUS_EARN_N + @TOTAL_BONUS_EARN_N, TOTAL_FOODSTUFF_EARN_N = TOTAL_FOODSTUFF_EARN_N + @TOTAL_FOODSTUFF_EARN_N, FOOD_REQUEST = @FOOD_REQUEST where REG_ID = @REG_ID"
         Using cmd As New SqlCommand(sql, thisConnection)
             cmd.CommandType = CommandType.Text
 
             cmd.Parameters.AddWithValue("@TOTAL_BONUS_EARN_U", bonus)
             cmd.Parameters.AddWithValue("@TOTAL_BONUS_EARN_N", bonus * 200)
 
+            cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_EARN_U", foodStuff)
+            cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_EARN_N", foodStuff * 200)
+
+
             cmd.Parameters.AddWithValue("@TOTAL_EWALLET_BALANCE_U", bonus)
             cmd.Parameters.AddWithValue("@TOTAL_EWALLET_BALANCE_N", bonus * 200)
+
+            cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_BALANCE_U", foodStuff)
+            cmd.Parameters.AddWithValue("@TOTAL_FOODSTUFF_BALANCE_N", foodStuff * 200)
+
+            cmd.Parameters.AddWithValue("@FOOD_REQUEST", "TRUE")
 
 
             cmd.Parameters.AddWithValue("@REG_ID", regId)
@@ -423,6 +463,7 @@ Partial Class SignUp
 
         End Using
     End Sub
+
 
     Private Sub addMemberLevel(ByVal regId As String, ByVal levelId As Integer)
         Dim sql = "insert into MatrixLevel(REG_ID, LEVEL_ID, ENTRY_DATE) Values(@REG_ID, @LEVEL_ID, @DATE)"
@@ -496,6 +537,11 @@ Partial Class SignUp
             Dim dsworky5 As DataTable = cc.SelectDataTableRecords(into5)
 
             'check if court its empty
+            If dsworky5.Rows.Count = 1 Then
+                sponsorCount = "FIRSTCOUNT"
+            Else
+                sponsorCount = ""
+            End If
             If dsworky5.Rows.Count = 2 Then
                 lblMessage.Visible = True
                 lblMessage.ForeColor = Color.Yellow
@@ -561,28 +607,15 @@ Partial Class SignUp
         End If
     End Sub
 
-    Protected Sub deleteUserGeneratedPin()
 
-        Try
-            thisConnection.Open()
-            Dim into1 As String = String.Format("DELETE FROM SentPinsTable where PINS ='" + txtRegId.Value + "'")
-            'passing the variable to the datatable
-            Dim dsworky As DataTable = cc.SelectDataTableRecords(into1)
+   
 
-
-        Catch ex As Exception
-
-        End Try
-        thisConnection.Close()
-
-    End Sub
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         btnsubmit.Attributes.Add("onclick", "return confirm('Please ensure you go through the information you provided before clicking on OK, else click on Cancel?')")
     End Sub
 
     Private Function getCurrentLevelTree(regId As String) As Tree
-        thisConnection.Open()
         Dim into1 As String = String.Format("SELECT  MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where REG_ID ='" + regId + "'")
         'passing the variable to the datatable
         Dim dsworky As DataTable = cc.SelectDataTableRecords(into1)
@@ -603,8 +636,8 @@ Partial Class SignUp
 
             Dim selectedLevel As Integer = rootMember.Stage
             'fetch the downlines
-
-            Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT between " + rootMember.Left.ToString + " and " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID = " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
+            Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT > " + rootMember.Left.ToString + " and MATRIX_RIGHT < " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID >= " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
+            'Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT between " + rootMember.Left.ToString + " and " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID >= " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
             dsworky = cc.SelectDataTableRecords(sql)
 
             'check if court its empty
@@ -634,4 +667,84 @@ Partial Class SignUp
 
     End Function
 
+    Public Sub sendmail()
+
+        lblMessage.Text = ""
+
+        Try
+
+            Dim imgpath2 As String = MapPath("~/images/logostransparent.png")
+
+            Dim msg As MailMessage
+            Dim cmd As New SqlCommand()
+            Dim ActivationUrl As String = String.Empty
+            Dim email As String = String.Empty
+            'Sending activation link in the email
+            msg = New MailMessage()
+            Dim fullname As String = txtUsersName.Value
+            email = txtEmail.Value
+            'sender email address
+            msg.From = New MailAddress("info@breadsforworld.com", "BREAD FOR WORLD INC.")
+            'Receiver email address
+            msg.[To].Add(New MailAddress(txtEmail.Value, txtUsersName.Value.ToString))
+            msg.Subject = "BREAD FOR WORLD INC."
+
+            Dim body As String = "<b>Hello</b>: " & fullname & "<br/><br/>" & "<br/><br/>" & "<b>Hello  <br/> Thanks for registering on Bread For World Inc. We are please to have you among team of potential millionaires. <br/> Thanks  <b/><br/><br/><br/><br/>If you received this email by mistake or if you didn’t sign up for this, just ignore this email. You won’t be subscribed if you don't click the link above. <br/>For questions about this list, please contact:  info@breadsforworld.com <br/><br/><br/>Best Regards."
+
+
+            msg.Body = body
+
+
+            'first we create the Plain Text part
+            Dim plainView As AlternateView = AlternateView.CreateAlternateViewFromString(body, Nothing, "text/plain")
+
+            'then we create the Html part
+            'to embed images, we need to use the prefix 'cid' in the img src value
+            'the cid value will map to the Content-Id of a Linked resource.
+            'thus <img src='cid:companylogo'> will map to a LinkedResource with a ContentId of 'companylogo'
+            Dim htmlView As AlternateView = AlternateView.CreateAlternateViewFromString("<img src=cid:companylogo> <br/><br/> " & vbLf & vbLf + body + "", Nothing, "text/html")
+
+            'create the LinkedResource (embedded image)
+            Dim logo As New LinkedResource(imgpath2)
+            logo.ContentId = "companylogo"
+            'add the LinkedResource to the appropriate view
+            htmlView.LinkedResources.Add(logo)
+
+            'add the views
+            msg.AlternateViews.Add(plainView)
+            msg.AlternateViews.Add(htmlView)
+
+
+            msg.IsBodyHtml = True
+
+
+
+
+            'Dim smtp As New SmtpClient()
+
+            Dim Smtp As New SmtpClient
+            Dim basicAuthenticationInfo As New System.Net.NetworkCredential("info@breadsforworld.com", "info@breadsforworld")
+
+
+
+            'for local
+            ' smtp.Port = 587
+            ' smtp.Host = "smtp.gmail.com"
+
+            'for server
+            Smtp.Port = 25
+            smtp.Host = "mail.breadsforworld.com"
+
+            Smtp.EnableSsl = False
+
+            Smtp.Send(msg)
+
+            ' lblMessage.Text = "Your PASSWORD has been sent to your email"
+            lblMessage.ForeColor = Color.Green
+        Catch ex As Exception
+
+            lblMessage.Text = "Sending failed! please confirm your internet connection and try again"
+            lblMessage.ForeColor = Color.Red
+        End Try
+    End Sub
 End Class

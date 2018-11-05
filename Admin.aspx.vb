@@ -38,7 +38,8 @@ Partial Class Admin
     Private Sub LoadRepeater()
         dt.Rows.Clear()
         thisConnection.Open()
-        sqlcmd = New SqlCommand("SELECT ID, REG_ID from RegTable  where USERSNAME  IS NULL ORDER BY ID", thisConnection)
+        'sqlcmd = New SqlCommand("SELECT ID,  from RegTable  where USERSNAME  IS NULL ORDER BY ID", thisConnection)
+        sqlcmd = New SqlCommand("SELECT ID, USERSNAME, PINS, DATE, STATUS  from SentPinsTable  ORDER BY ID", thisConnection)
         da = New SqlDataAdapter(sqlcmd)
         da.Fill(dt)
         If dt.Rows.Count > 0 Then
@@ -65,7 +66,7 @@ Partial Class Admin
 
                     Dim pin = Guid.NewGuid.ToString().Substring(0, 10).ToUpper
 
-                str = New String() {"INSERT INTO RegTable (REG_ID) VALUES ('" + pin + "')", "INSERT INTO SentPinsTable (uuid, usersname, Pins, date) VALUES ('" + Guid.NewGuid.ToString().Substring(0, 5) + "', '" + txtUsersname.Text.Trim + "', '" + pin + "', '" + Date.Now + "')"}
+                str = New String() {"INSERT INTO RegTable (REG_ID) VALUES ('" + pin + "')", "INSERT INTO SentPinsTable (usersname, Pins, STATUS, date) VALUES ('" + txtUsersname.Text.Trim + "', '" + pin + "', 'UNUSED', '" + Date.Now.Date + "')"}
                     Try
                         Code_Class.SaveRecord(str)
 

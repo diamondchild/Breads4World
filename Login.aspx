@@ -55,6 +55,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -74,10 +75,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav">
 									<li><a href="index.html">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="HowItWork.html">How It Work</a></li>
+									<li><a href="about.html">About Us</a></li>
+									<li><a href="HowItWorks.aspx">How It Works</a></li>
                                     <li><a href="FAQ.html">FAQ</a></li>
-                                	<li><a href="contact.html">Contact</a></li>
+                                      <li><a href="UpForGrabs.html">Up For Grabs</a></li>
+                                       <li><a href="PantryHomes.html">Pantry Homes</a></li>
+                                	<li><a href="contact.html">Contact Us</a></li>
                                      <li><a class="active"  href="#">Login</a></li>
 								</ul>	
 									
@@ -92,23 +95,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <form id="Form2" runat = "server">
                         <div style="width: 100%" >
 							 <table  background-color: #000000;" 
-                                 style="width: 43%; margin-right: auto; margin-left: auto"><tr>
-                                     <td style="color: #FFFFFF" class="style1">
-                                         &nbsp;</td><td>
+                                 style="width: 63%; margin-right: auto; margin-left: auto"><tr>
+                                     <td>
 											<asp:Label ID="lblMessage" runat="server" Font-Size="Large" 
                                             ForeColor="Yellow"></asp:Label>
                                             </td></tr><tr>
-                                     <td style="color: #FFFFFF" class="style1">
-                                         &nbsp;</td><td>
+                                     <td>
                                             <span class="style2">&nbsp;&nbsp; </span>&nbsp;&nbsp;&nbsp;
-                                            </td></tr><tr><td style="color: #FFFFFF" class="style1">UserName:</td><td>
+                                            </td></tr><tr>
+                                     <td>
+                                            <span class="fa-inverse">UserName</span>:</td></tr><tr><td>
 											<input id="txtUserName" runat="server" type="text" style="width: 100%" />
-                                            </td></tr><tr><td style="color: #FFFFFF" class="style1">Password:</td><td>
+                                            </td></tr><tr><td>
+											<span class="fa-inverse">Password</span>:</td></tr><tr><td>
 										  <input id="txtPassword" runat="server" type="password"  style="width: 100%" />
-                                          </td></tr><tr><td style="color: #FFFFFF" class="style1"></td><td>
+                                          </td></tr><tr><td>
                                                     <asp:LinkButton ID="LinkButton2" runat="server" Font-Italic="True" 
                                                         Font-Size="Smaller" ForeColor="Yellow">Click here to have your password sent to your mail</asp:LinkButton>
-                                                    </td></tr><tr><td style="color: #FFFFFF" class="style1"></td><td>
+                                                    </td></tr><tr><td>
                                         <button type="button" class="button" id="btnJoinNow"  runat="server"> Join Now</button>  
                                        <button type="button" class="button" id="btnSignIn"  runat="server"> Sign In</button> <br />
                                        </td></tr></table>

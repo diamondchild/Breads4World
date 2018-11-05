@@ -33,16 +33,24 @@ Partial Class FundRequest
 
 
     Protected Sub btnRequest_ServerClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnRequest.ServerClick
-
-        Dim checkAmount = Val(txteWalletBalance.Value.Trim) - Val(txtAmountWithdrawn.Value.Trim)
-        If checkAmount <= 0 Or txteWalletBalance.Value.Trim = "0" Then
+        If txtAmountWithdrawn.Value.Trim = "" Then
             lblMessage.Visible = True
             lblMessage.ForeColor = Color.Red
-            lblMessage.Text = " Sorry, insufficient eWallet Balance"
+            lblMessage.Text = "Pleae enter an amount to withdraw"
         Else
+            Dim checkAmount = Val(txteWalletBalance.Value.Trim) - Val(txtAmountWithdrawn.Value.Trim)
+            If checkAmount < 0 Or txteWalletBalance.Value.Trim = "0" Then
+                lblMessage.Visible = True
+                lblMessage.ForeColor = Color.Red
+                lblMessage.Text = " Sorry, insufficient eWallet Balance"
+            Else
 
-            updateDashboard(Session("regID"), checkAmount, txtAmountWithdrawn.Value.Trim)
+                updateDashboard(Session("regID"), checkAmount, txtAmountWithdrawn.Value.Trim)
+            End If
+
+        
         End If
+
     End Sub
 
     Private Sub updateDashboard(ByVal regId As String, ByVal ewalletBal As Object, ByVal amountToWithdrawn As Object)

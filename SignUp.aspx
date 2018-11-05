@@ -59,6 +59,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                 <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -78,10 +79,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 								<ul class="nav navbar-nav">
 									<li><a href="index.html">Home</a></li>
-									<li><a href="about.html">About</a></li>
-									<li><a href="HowItWork.html">How It Work</a></li>
+									<li><a href="about.html">About Us</a></li>
+									<li><a href="HowItWorks.aspx">How It Works</a></li>
                                     <li><a href="FAQ.html">FAQ</a></li>
-                                	<li><a href="contact.html">Contact</a></li>
+                                     <li><a href="UpForGrabs.html">Up For Grabs</a></li>
+                                       <li><a href="PantryHomes.html">Pantry Homes</a></li>
+                                	<li><a href="contact.html">Contact Us</a></li>
                                      <li><a class="active"  href="Login.aspx">Login</a></li>
 								</ul>	
 									
@@ -94,18 +97,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="wthree-heading">
 			<h2>Registration Form</h2><br /><br />
             <form id="Form2" runat = "server">
-                        <div style="width: 100%" >
+                        <div style="width: 70%; margin-right: auto; margin-left: auto;"  >
 
                   
-                               <div class = "sharp2" style="padding: 10px; width: 60%;   margin-right: auto; margin-left: auto;"  
-                                            align="center"><h4></h4><br />
                                             <asp:Label ID="lblValidateStatus" runat="server" ForeColor="Yellow" 
                                                 Visible="False"></asp:Label>
 
                                             <asp:Label ID="lblMessage" runat="server"></asp:Label>
 
-                                            <table style="border: thin solid #FFFFFF; width: 98%; font-size: large; color: #ffffff; font-weight: bold; " border="3" 
-                                    cellspacing="2" frame="box" bgcolor="Black">
+                                            <table style="border: thin solid #FFFFFF; width: 98%; padding: 2px; font-size: large; color: #ffffff; font-weight: bold; " border="3" 
+                                    cellspacing="5" frame="box" bgcolor="Black">
                                     <tr><td class="style2">Reg. ID</td><td>
                                         <input runat="server" id="txtRegId"  type="text" style="width: 100%; color: #000000;" />
                                                     </td></tr>

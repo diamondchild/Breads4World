@@ -27,6 +27,11 @@ Partial Class Genealogy
         populateCombo()
     End Sub
 
+
+
+
+
+
     Protected Sub getTreeInfo()
         If Session("userid") IsNot Nothing Then
             Try
@@ -44,11 +49,14 @@ Partial Class Genealogy
                     Dim rootMember As New Member
 
                     rootMember.Left = dsworky.Rows(0)("MATRIX_LEFT")
-                    MLeft = dsworky.Rows(0)("MATRIX_LEFT")
+                    Mleft = dsworky.Rows(0)("MATRIX_LEFT")
                     rootMember.Right = dsworky.Rows(0)("MATRIX_RIGHT")
                     MRight = dsworky.Rows(0)("MATRIX_RIGHT")
                     rootMember.Stage = dsworky.Rows(0)("CURRENT_STAGE_ID")
 
+                    Session.Add(Mleft, "mleft")
+                    Session.Add("mright", Mright)
+                    Session.Add("mleft", Mleft)
 
                     Select rootMember.Stage
                         Case 1
@@ -72,20 +80,20 @@ Partial Class Genealogy
                     'lblStage.Text = dsworky.Rows(0)("CURRENT_STAGE")
 
 
-
-
                     Dim selectedLevel As Integer = rootMember.Stage
                     If Request("selectedLevel") IsNot Nothing Then
                         selectedLevel = Request("selectedLevel")
                     End If
                     'fetch the downlines
 
-                    Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT between " + rootMember.Left.ToString + " and " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID = " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
+                    Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT > " + rootMember.Left.ToString + " and MATRIX_RIGHT < " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID >= " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
+
+                    'Dim sql = "SELECT MATRIX_LEFT, MATRIX_RIGHT, USERSNAME, REG_ID, CURRENT_STAGE_ID FROM RegTable where MATRIX_LEFT > " + rootMember.Left.ToString + " and MATRIX_RIGHT < " + rootMember.Right.ToString + " and  CURRENT_STAGE_ID >= " + selectedLevel.ToString + " order by MATRIX_LEFT asc"
                     dsworky = cc.SelectDataTableRecords(sql)
 
                     'check if court its empty
+                    Dim members As New System.Collections.Generic.List(Of Member)
                     If dsworky.Rows.Count > 0 Then
-                        Dim members As New System.Collections.Generic.List(Of Member)
                         For index As Integer = 0 To dsworky.Rows.Count - 1
                             Dim member As New Member
 
@@ -98,11 +106,9 @@ Partial Class Genealogy
                             members.Add(member)
                         Next
 
-                        Dim tree As Tree = New Tree(rootMember, members, 1)
-                        genealogyDiv.InnerHtml = tree.Display()
-
-
                     End If
+                    Dim tree As Tree = New Tree(rootMember, members, 1)
+                    genealogyDiv.InnerHtml = tree.Display()
                 Else
 
                 End If
@@ -148,7 +154,7 @@ Partial Class Genealogy
         If Not Me.IsPostBack Then
             Dim constr As String = ConfigurationManager.ConnectionStrings("Bread4WorldConnectionString").ConnectionString
             Using con As New SqlConnection(constr)
-                Using cmd As New SqlCommand("SELECT USERSNAME FROM RegTable where MATRIX_LEFT between " + Mleft.ToString + " and " + Mright.ToString + " order by MATRIX_LEFT asc ")
+                Using cmd As New SqlCommand("SELECT USERSNAME, REG_ID FROM RegTable where MATRIX_LEFT between " + Mleft.ToString + " and " + Mright.ToString + " order by MATRIX_LEFT asc ")
                     cmd.CommandType = CommandType.Text
                     cmd.Connection = con
                     con.Open()

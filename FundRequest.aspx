@@ -38,8 +38,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <style type="text/css">
         .style1
         {
-            width: 223px;
             text-align: left;
+        }
+        .style2
+        {
+            text-align: left;
+            color: #000066;
         }
     </style>
 </head>
@@ -52,6 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                 <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -83,7 +88,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                        </td><td>
                                        <button type="button" class="button" id="btnRequest"  runat="server" 
                                              style="background-color: #339933"> Request</button> <br />
-                                       </td></tr></table>
+                                       </td></tr><tr><td style="color: #FFFFFF" class="style1">
+                                        &nbsp;</td><td>
+                                         &nbsp;</td></tr><tr><td style="color: #FFFFFF" class="style1">
+                                        &nbsp;</td><td>
+                                         &nbsp;</td></tr><tr><td style="background-color: #FFCC00;" class="style2" 
+                                         colspan="2"><span>
+                                             <img src="images/alert.jpg" /><em> </em> </span>
+                                        <em>Please note that each transaction attract a service fee of $5</em></td></tr><tr><td style="color: #FFFFFF" class="style1">
+                                        &nbsp;</td><td>
+                                         &nbsp;</td></tr></table>
 						</div>
                         </form>
 		</div>

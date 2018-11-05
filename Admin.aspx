@@ -45,6 +45,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<div class="w3layouts-logo">
 							<h1>
 								<a href="index.html">Bread For World <span>Int.</span></a>
+                                 <span style="color: #ffffff; font-family: Broadway;">Enriching lives</span>
 							</h1>
 						</div>
 					</div>
@@ -65,7 +66,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<ul class="nav navbar-nav">
 									<li><a class="active"  href="#">Generate PIN</a></li>
 									<li><a href="Transfer.aspx">Pending Transfer</a></li>
-                                    	<li><a href="ViewTransactionDetails.aspx">Transaction Details</a></li>
+                                    <li><a href="FoodStuffRequest.aspx">Food Stuff Request</a></li>
+                                    <%--	<li><a href="ViewTransactionDetails.aspx">Transaction Details</a></li>--%>
 								<li><a href="ViewAll.aspx" target = "_blank">View All Users</a></li>
                                      <li><a  href="#" id="lnkLogout" runat="server">Logout</a></li>
 								</ul>	
@@ -139,7 +141,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <table border="0" width="100%" cellspacing="0" cellpadding="2">
             <tr style="background-color: #6666FF; color: #FFFFFF; font-weight: bold; text-align: center;">
                  <td class="reapeatercell_header">ID</td>
-                 <td class="reapeatercell_header">REG_ID</td>
+                 <td class="reapeatercell_header">USERSNAME</td>
+                   <td class="reapeatercell_header">PINS</td>
+                 <td class="reapeatercell_header">STATUS</td>
+                   <td class="reapeatercell_header">DATE</td>
+        
                 
                  
             </HeaderTemplate>
@@ -148,8 +154,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <tr class="reapeatercell" style="background-color: #33CCFF; text-align: center; color: #000000;">
         
                <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "ID")%></td>
-               <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "REG_ID")%></td>
-                 
+               <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "USERSNAME")%></td>
+                  <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "PINS")%></td>
+                     <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "STATUS")%></td>
+                    <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "DATE")%></td>
         
             </tr>
              <tr> 

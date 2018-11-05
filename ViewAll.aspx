@@ -21,6 +21,8 @@
              
                  <td class="reapeatercell_header">REG_ID</td>
                  <td class="reapeatercell_header">USERSNAME</td>
+                  <td class="reapeatercell_header">FIRST_NAME</td>
+                   <td class="reapeatercell_header">LAST_NAME</td>
                    <td class="reapeatercell_header">MOBILE</td>
                      <td class="reapeatercell_header">SPONSOR NAME</td>
                      <td class="reapeatercell_header">PASSWORD</td>
@@ -35,6 +37,10 @@
            
                <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "REG_ID")%></td>
                 <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "USERSNAME")%></td>
+
+                                <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "FIRST_NAME")%></td>
+                                                <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "LAST_NAME")%></td>
+
                  <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "MOBILE")%></td>
                  <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "SPONSOR_NAME")%></td>
                   <td class="reapeatercell"> <%# DataBinder.Eval(Container.DataItem, "PASSWORD")%></td>
