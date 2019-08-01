@@ -165,6 +165,7 @@ public class Member
     public int Right;
 
 }
+
 public class Node
 {
     public Node Parent;
@@ -243,8 +244,6 @@ public class Node
 
     public bool PlaceChild(Member member)
     {
-        //if (_tree.HasBeenAdded(member)) return true;
-
         if (IsDecendant(member))
         {
             if (IsChild(member))
@@ -271,40 +270,61 @@ public class Node
                 RightNode.Parent = this;
                 return true;
             }
-            else
-            {
-                if(LeftNode != null)
-                {
-                    if (LeftNode.IsEmpty())
-                    {
-                        LeftNode.CopyMember(member, this);
-                        return true;
-                    }
-                    else if (LeftNode.IsDecendant(member))
-                    {
-                        return LeftNode.PlaceChild(member);
-                    }
-                }
 
-                if (RightNode != null)
-                {
-                    if (RightNode.IsEmpty())
-                    {
-                        RightNode.CopyMember(member, this);
-                        return true;
-                    }
-                    else if (RightNode.IsDecendant(member))
-                    {
-                        return RightNode.PlaceChild(member);
-                    }
-                }
-                return false;
+            if(LeftNode != null && !LeftNode.IsEmpty() && LeftNode.IsDecendant(member))
+            {
+                return LeftNode.PlaceChild(member);
             }
+
+            if(RightNode != null && !RightNode.IsEmpty() && RightNode.IsDecendant(member))
+            {
+                return RightNode.PlaceChild(member);
+            }
+
+            if(LeftNode != null)
+            {
+                if (LeftNode.IsEmpty())
+                {
+                    LeftNode.CopyMember(member, this);
+                    return true;
+                }
+            }
+
+            if (RightNode != null)
+            {
+                if (RightNode.IsEmpty())
+                {
+                    RightNode.CopyMember(member, this);
+                    return true;
+                }
+            }
+            return false;
         }
         return Parent.PlaceChild(member);
     }
 
-    private bool IsEmpty()
+    public bool PlaceFreeFlowChild(Member member)
+    {
+        if (LeftNode == null || RightNode == null) return false;
+
+        if (LeftNode.IsEmpty())
+        {
+            LeftNode.CopyMember(member, this);
+            return true;
+        }
+
+        if (RightNode.IsEmpty())
+        {
+            RightNode.CopyMember(member, this);
+            return true;
+        }
+
+        if (!LeftNode.PlaceFreeFlowChild(member))
+            return RightNode.PlaceFreeFlowChild(member);
+        return true;
+    }
+   
+    public bool IsEmpty()
     {
         return _title == "Empty";
     }
@@ -433,10 +453,30 @@ public class Tree
         RootNode = new Node(rootMember, 1, this);
         RootNode.AddChildren(new List<Member> { rootMember }, block);
 
+        var freeFlowMembers = new List<Member>();
+
         foreach (var m in members)
         {
             if (m.RegId == rootMember.RegId) continue;
-            RootNode.PlaceChild(m);
+            if (RootNode.PlaceChild(m)) continue;
+            if (freeFlowMembers.All(member => member.RegId != m.RegId))
+                freeFlowMembers.Add(m);
+        }
+
+        foreach (var member in freeFlowMembers)
+        {
+            if (!RootNode.LeftNode.IsEmpty() && RootNode.LeftNode.IsDecendant(member))
+            {
+                RootNode.LeftNode.PlaceFreeFlowChild(member);
+                continue;
+            }
+            if (!RootNode.RightNode.IsEmpty() && RootNode.RightNode.IsDecendant(member))
+            {
+                RootNode.RightNode.PlaceFreeFlowChild(member);
+                continue;
+            }
+
+            RootNode.PlaceFreeFlowChild(member);
         }
     }
 
